@@ -1,0 +1,152 @@
+#%RAML 1.0
+title: Member API service
+description: 'This Member API service will accept the member id as an input parameter and will provide a list of parameters as an output to the calling application '
+version: 1.0.0
+(oas-info):
+  termsOfService: 'http://swagger.io/terms/'
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+annotationTypes:
+  oas-info:
+    properties:
+      termsOfService?: string
+      contact?:
+        properties:
+          name?: string
+          url?: string
+          email?: string
+      license?:
+        properties:
+          name?: string
+          url?: string
+    allowedTargets: API
+  oas-tags-definition:
+    allowedTargets: API
+    type: array
+    items:
+      properties:
+        name: string
+        description?: string
+        externalDocs?:
+          properties:
+            url: string
+            description?: string
+  oas-summary:
+    type: string
+    allowedTargets: Method
+  oas-tags:
+    type: 'string[]'
+    allowedTargets: Method
+  oas-body-name:
+    type: string
+    allowedTargets: TypeDeclaration
+(oas-tags-definition):
+  - name: MembersAPIs
+    description: 'API to accept Member ID as an input and provide member details. '
+  - name: MemberID
+    description: 'Base URL path '
+protocols:
+  - HTTPS
+  - HTTP
+baseUri: https://mocksvc.mulesoft.com/mocks/ca52962b-bae9-4008-a6bd-d69a78888995/v1 # baseUri: 'https://hcsc.ace.swagger.io/v1'
+/members:
+  get:
+    description: Get details for the member
+    displayName: findRewardPoints
+    responses:
+      '200':
+        description: successful operation
+        body:
+          application/json:
+            example:
+              rewardsSummary:
+                - date: 05/22/2018
+                  treatment: Evaluation by Specialist
+                  providerName: 'Smith, Thomas, MD'
+                  providerAddress: '12 S Michigan Ave, Chicago, IL 60603'
+                  points: '90'
+                - date: 08/12/2017
+                  treatment: General Checkup
+                  providerName: University of Chicago Medicine
+                  providerAddress: '5841 S Maryland Ave, Chicago, IL 60637'
+                  points: '135'
+                - date: 01/17/2017
+                  treatment: Insertion of Heart Defibrillator
+                  providerName: 'Smith, Thomas, MD'
+                  providerAddress: '12 S Michigan Ave, Chicago, IL 60603'
+                  points: '200'
+    queryParameters:
+      member_id:
+        description: Member id to get the member information
+        type: string
+    (oas-summary): Finds reward points for the MemberID
+    (oas-tags):
+      - MemberAPIs
+  /rewards:
+    post:
+      description: Get details for the members
+      displayName: findRewardPointsbyMembersID
+      responses:
+        '200':
+          description: successful operation
+          body:
+            application/json:
+              example:
+                rewardsSummary:
+                  - date: 05/22/2018
+                    treatment: Evaluation by Specialist
+                    providerName: 'Smith, Thomas, MD'
+                    providerAddress: '12 S Michigan Ave, Chicago, IL 60603'
+                    points: '90'
+                  - date: 08/12/2017
+                    treatment: General Checkup
+                    providerName: University of Chicago Medicine
+                    providerAddress: '5841 S Maryland Ave, Chicago, IL 60637'
+                    points: '135'
+                  - date: 01/17/2017
+                    treatment: Insertion of Heart Defibrillator
+                    providerName: 'Smith, Thomas, MD'
+                    providerAddress: '12 S Michigan Ave, Chicago, IL 60603'
+                    points: '200'
+      body:
+        application/json:
+          description: Get member details
+          type: object
+          (oas-body-name): ID
+      (oas-summary): Finds reward points for the MemberID
+      (oas-tags):
+        - MemberAPIs
+  '/{member_id}':
+    get:
+      description: Get details for the member
+      displayName: findRewardPointsByMemberID
+      responses:
+        '200':
+          description: successful operation
+          body:
+            application/json:
+              example:
+                rewardsSummary:
+                  - date: 05/22/2018
+                    treatment: Evaluation by Specialist
+                    providerName: 'Smith, Thomas, MD'
+                    providerAddress: '12 S Michigan Ave, Chicago, IL 60603'
+                    points: '90'
+                  - date: 08/12/2017
+                    treatment: General Checkup
+                    providerName: University of Chicago Medicine
+                    providerAddress: '5841 S Maryland Ave, Chicago, IL 60637'
+                    points: '135'
+                  - date: 01/17/2017
+                    treatment: Insertion of Heart Defibrillator
+                    providerName: 'Smith, Thomas, MD'
+                    providerAddress: '12 S Michigan Ave, Chicago, IL 60603'
+                    points: '200'
+      (oas-summary): Finds reward points for the MemberID
+      (oas-tags):
+        - MemberAPIs
+    uriParameters:
+      member_id:
+        description: Member id to get the member information
+        type: string
